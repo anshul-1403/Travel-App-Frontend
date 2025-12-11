@@ -12,7 +12,7 @@ export const SearchResults = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `https://breezetraveloapp.herokuapp.com/api/hotels?category=${hotelCategory}`
+          `http://localhost:3200/api/hotels?categories=${hotelCategory}`
         );
         setHotels(data);
       } catch (err) {
