@@ -13,7 +13,7 @@ export const SearchResults = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3200/api/hotels?categories=${hotelCategory}`
+          `https://travel-app-backend-zvzh.onrender.com/api/hotels?categories=${hotelCategory}`
         );
         setHotels(data);
       } catch (err) {
