@@ -11,7 +11,7 @@ export const SearchStayWithDate = () => {
   const { hotelCategory } = useCategory();
 
   const navigate = useNavigate();
-
+       
   useEffect(() => {
     (async () => {
       try {
@@ -54,10 +54,16 @@ export const SearchStayWithDate = () => {
 
   const handleSearchButtonClick = () => {
     dateDispatch({
-      type: "CLOSE_SEARCH_MODAL",
+      type: "CLOSE_SEARCH_MODAL"
     });
     navigate(`/hotels/${destination}`);
   };
+
+  const handleSearchCloseClick = () => {
+    dateDispatch({
+      type: "CLOSE_SEARCH_MODAL"
+    })
+  }
 
   const destinationOptions = hotels.filter(
     ({ address, city, state, country }) =>
@@ -105,6 +111,9 @@ export const SearchStayWithDate = () => {
           <span className="material-icons-outlined">search</span>
           <span>Search</span>
         </div>
+        <button className="button absolute close-search-dest"><span onClick={handleSearchCloseClick} className="highlight material-icons-outlined">
+          highlight_off
+        </span></button>
       </div>
       {isSearchResultOpen && (
         <div className="search-result-container absolute">
