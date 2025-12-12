@@ -26,7 +26,7 @@ export const SingleHotel = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3200/api/hotels/${id}`
+          `https://travel-app-backend-zvzh.onrender.com/api/hotels/${id}`
         );
         setSingleHotel(data);
       } catch (err) {
