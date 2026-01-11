@@ -53,3 +53,9 @@
   background-color: var(--primary-color);
   color: var(--background-color);
 }
+
+.auth-error {
+  color: red;
+  font-size: 12px;
+  margin: 4px 0;
+}

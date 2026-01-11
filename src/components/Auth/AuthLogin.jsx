@@ -1,82 +1,53 @@
 import "./Auth.css";
+import { useState } from "react";
 import { validateNumber, validatePassword } from "../../utils";
 import { loginHandler } from "../../services";
 import { useAuth, useAlert } from "../../context";
-
-let isNumberValid, isPasswordValid;
 
 export const AuthLogin = () => {
   const { authDispatch, number, password } = useAuth();
   const { setAlert } = useAlert();
 
-  const handleNumberChange = (event) => {
-    isNumberValid = validateNumber(event.target.value);
-    if (isNumberValid) {
-      console.log("Valid Input");
-      authDispatch({
-        type: "NUMBER",
-        payload: event.target.value,
-      });
+  const [numberError, setNumberError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const handleNumberChange = (e) => {
+    const value = e.target.value;
+    if (!validateNumber(value)) {
+      setNumberError("Enter a valid 10-digit mobile number");
     } else {
-      console.log("Invalid Number");
+      setNumberError("");
+      authDispatch({ type: "NUMBER", payload: value });
     }
   };
 
-  const handlePasswordChange = (event) => {
-    isPasswordValid = validatePassword(event.target.value);
-    if (isPasswordValid) {
-      console.log("Valid Input");
-      authDispatch({
-        type: "PASSWORD",
-        payload: event.target.value,
-      });
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    if (!validatePassword(value)) {
+      setPasswordError(
+        "Password must be 8+ chars with uppercase, lowercase, number & special character"
+      );
     } else {
-      console.log("Invalid Password");
+      setPasswordError("");
+      authDispatch({ type: "PASSWORD", payload: value });
     }
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (isNumberValid && isPasswordValid) {
-      const { accessToken, username } = await loginHandler(number, password, setAlert);
-      authDispatch({
-        type: "SET_ACCESS_TOKEN",
-        payload: accessToken,
-      });
-      authDispatch({
-        type: "SET_USER_NAME",
-        payload: username,
-      });
 
-    }
-    authDispatch({
-      type: "CLEAR_USER_DATA",
-    });
-    authDispatch({
-      type: "SHOW_AUTH_MODAL",
-    });
-  };
+    if (numberError || passwordError || !number || !password) return;
 
-  const handleTestCredentialsClick = async () => {
     const { accessToken, username } = await loginHandler(
-      7878787878,
-      "Abcd@1234",
+      number,
+      password,
       setAlert
     );
-    authDispatch({
-      type: "SET_ACCESS_TOKEN",
-      payload: accessToken,
-    });
-    authDispatch({
-      type: "SET_USER_NAME",
-      payload: username,
-    });
-    authDispatch({
-      type: "CLEAR_USER_DATA",
-    });
-    authDispatch({
-      type: "SHOW_AUTH_MODAL",
-    });
+
+    authDispatch({ type: "SET_ACCESS_TOKEN", payload: accessToken });
+    authDispatch({ type: "SET_USER_NAME", payload: username });
+    authDispatch({ type: "CLEAR_USER_DATA" });
+    authDispatch({ type: "SHOW_AUTH_MODAL" });
   };
 
   return (
@@ -84,43 +55,36 @@ export const AuthLogin = () => {
       <form onSubmit={handleFormSubmit}>
         <div className="d-flex direction-column lb-in-container">
           <label className="auth-label">
-            Mobile Number <span className="asterisk">*</span>{" "}
+            Mobile Number <span className="asterisk">*</span>
           </label>
           <input
-            defaultValue={number}
+            value={number}
             type="number"
             className="auth-input"
-            maxLength="10"
             placeholder="Enter Mobile Number"
             required
             onChange={handleNumberChange}
           />
+          {numberError && <span className="auth-error">{numberError}</span>}
         </div>
+
         <div className="d-flex direction-column lb-in-container">
           <label className="auth-label">
-            Password <span className="asterisk">*</span>{" "}
+            Password <span className="asterisk">*</span>
           </label>
           <input
-            defaultValue={password}
+            value={password}
             className="auth-input"
             placeholder="Enter Password"
             type="password"
             required
             onChange={handlePasswordChange}
           />
+          {passwordError && <span className="auth-error">{passwordError}</span>}
         </div>
-        <div>
-          <button className="button btn-primary btn-login cursor">Login</button>
-        </div>
+
+        <button className="button btn-primary btn-login cursor">Login</button>
       </form>
-      <div className="cta">
-        <button
-          className="button btn-outline-primary cursor-pointer"
-          onClick={handleTestCredentialsClick}
-        >
-          Login with Test Credentials
-        </button>
-      </div>
     </div>
   );
 };

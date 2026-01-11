@@ -6,8 +6,8 @@ import {
   validateNumber,
   validatePassword,
 } from "../../utils";
-
 import { signupHandler } from "../../services";
+import { useState } from "react";
 
 let isNumberValid,
   isNameValid,
@@ -16,78 +16,73 @@ let isNumberValid,
   isConfirmPasswordValid;
 
 export const AuthSignup = () => {
-  const { username, email, password, number, confirmPassword, authDispatch } =
+  const { username, email, password, number, authDispatch } =
     useAuth();
-  
   const { setAlert } = useAlert();
 
-  const handleNumberChange = (event) => {
-    isNumberValid = validateNumber(event.target.value);
+  const [errors, setErrors] = useState({});
+
+  const handleNumberChange = (e) => {
+    isNumberValid = validateNumber(e.target.value);
+    setErrors((prev) => ({
+      ...prev,
+      number: isNumberValid ? "" : "Enter valid 10-digit mobile number",
+    }));
     if (isNumberValid) {
-      console.log("Valid Input");
-      authDispatch({
-        type: "NUMBER",
-        payload: event.target.value,
-      });
-    } else {
-      console.log("Invalid Number");
+      authDispatch({ type: "NUMBER", payload: e.target.value });
     }
   };
 
-  const handleNameChange = (event) => {
-    isNameValid = validateName(event.target.value);
+  const handleNameChange = (e) => {
+    isNameValid = validateName(e.target.value);
+    setErrors((prev) => ({
+      ...prev,
+      name: isNameValid ? "" : "Name should contain only letters",
+    }));
     if (isNameValid) {
-      console.log("Valid Input");
-      authDispatch({
-        type: "NAME",
-        payload: event.target.value,
-      });
-    } else {
-      console.log("Invalid Name");
+      authDispatch({ type: "NAME", payload: e.target.value });
     }
   };
 
-  const handleEmailChange = (event) => {
-    isEmailValid = validateEmail(event.target.value);
+  const handleEmailChange = (e) => {
+    isEmailValid = validateEmail(e.target.value);
+    setErrors((prev) => ({
+      ...prev,
+      email: isEmailValid ? "" : "Enter a valid email address",
+    }));
     if (isEmailValid) {
-      console.log("Valid Input");
-      authDispatch({
-        type: "EMAIL",
-        payload: event.target.value,
-      });
-    } else {
-      console.log("Invalid Email");
+      authDispatch({ type: "EMAIL", payload: e.target.value });
     }
   };
 
-  const handlePasswordChange = (event) => {
-    isPasswordValid = validatePassword(event.target.value);
+  const handlePasswordChange = (e) => {
+    isPasswordValid = validatePassword(e.target.value);
+    setErrors((prev) => ({
+      ...prev,
+      password: isPasswordValid
+        ? ""
+        : "Password must be 8+ chars, uppercase, lowercase, number & symbol",
+    }));
     if (isPasswordValid) {
-      console.log("Valid Input");
-      authDispatch({
-        type: "PASSWORD",
-        payload: event.target.value,
-      });
-    } else {
-      console.log("Invalid Password");
+      authDispatch({ type: "PASSWORD", payload: e.target.value });
     }
   };
 
-  const handleConfirmPasswordChange = (event) => {
-    isConfirmPasswordValid = validatePassword(event.target.value);
+  const handleConfirmPasswordChange = (e) => {
+    isConfirmPasswordValid = e.target.value === password;
+    setErrors((prev) => ({
+      ...prev,
+      confirmPassword: isConfirmPasswordValid
+        ? ""
+        : "Passwords do not match",
+    }));
     if (isConfirmPasswordValid) {
-      console.log("Valid Input");
-      authDispatch({
-        type: "CONFIRM_PASSWORD",
-        payload: event.target.value,
-      });
-    } else {
-      console.log("Invalid Password");
+      authDispatch({ type: "CONFIRM_PASSWORD", payload: e.target.value });
     }
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
     if (
       isNumberValid &&
       isNameValid &&
@@ -96,85 +91,56 @@ export const AuthSignup = () => {
       isConfirmPasswordValid
     ) {
       signupHandler(username, number, email, password, setAlert);
+      authDispatch({ type: "CLEAR_USER_DATA" });
     }
-    authDispatch({
-      type: "CLEAR_USER_DATA",
-    });
   };
 
   return (
     <div className="auth-container">
       <form onSubmit={handleFormSubmit}>
-        <div className="d-flex direction-column lb-in-container">
+        <div className="lb-in-container">
           <label className="auth-label">
-            Mobile Number <span className="asterisk">*</span>{" "}
+            Mobile Number <span className="asterisk">*</span>
           </label>
-          <input
-            defaultValue={number}
-            type="number"
-            className="auth-input"
-            maxLength="10"
-            placeholder="Enter Mobile Number"
-            required
-            onChange={handleNumberChange}
-          />
+          <input className="auth-input" type="number" onChange={handleNumberChange} />
+          {errors.number && <p className="auth-error">{errors.number}</p>}
         </div>
-        <div className="d-flex direction-column lb-in-container">
+
+        <div className="lb-in-container">
           <label className="auth-label">
-            Name <span className="asterisk">*</span>{" "}
+            Name <span className="asterisk">*</span>
           </label>
-          <input
-            defaultValue={username}
-            className="auth-input"
-            placeholder="Enter Name"
-            required
-            onChange={handleNameChange}
-          />
+          <input className="auth-input" onChange={handleNameChange} />
+          {errors.name && <p className="auth-error">{errors.name}</p>}
         </div>
-        <div className="d-flex direction-column lb-in-container">
+
+        <div className="lb-in-container">
           <label className="auth-label">
-            Email <span className="asterisk">*</span>{" "}
+            Email <span className="asterisk">*</span>
           </label>
-          <input
-            defaultValue={email}
-            className="auth-input"
-            placeholder="Enter Email"
-            type="email"
-            required
-            onChange={handleEmailChange}
-          />
+          <input className="auth-input" type="email" onChange={handleEmailChange} />
+          {errors.email && <p className="auth-error">{errors.email}</p>}
         </div>
-        <div className="d-flex direction-column lb-in-container">
+
+        <div className="lb-in-container">
           <label className="auth-label">
-            Password <span className="asterisk">*</span>{" "}
+            Password <span className="asterisk">*</span>
           </label>
-          <input
-            defaultValue={password}
-            className="auth-input"
-            placeholder="Enter Password"
-            type="password"
-            required
-            onChange={handlePasswordChange}
-          />
+          <input className="auth-input" type="password" onChange={handlePasswordChange} />
+          {errors.password && <p className="auth-error">{errors.password}</p>}
         </div>
-        <div className="d-flex direction-column lb-in-container">
+
+        <div className="lb-in-container">
           <label className="auth-label">
-            Confirm Password <span className="asterisk">*</span>{" "}
+            Confirm Password <span className="asterisk">*</span>
           </label>
-          <input
-            defaultValue={confirmPassword}
-            className="auth-input"
-            placeholder="Enter Password"
-            type="password"
-            required
-            onChange={handleConfirmPasswordChange}
-          />
+          <input className="auth-input" type="password" onChange={handleConfirmPasswordChange} />
+          {errors.confirmPassword && (
+            <p className="auth-error">{errors.confirmPassword}</p>
+          )}
         </div>
-        <div>
-          <button className="button btn-primary btn-login cursor">
-            Submit
-          </button>
-        </div>
+
+        <button className="button btn-primary btn-login cursor">Submit</button>
       </form>
     </div>
   );

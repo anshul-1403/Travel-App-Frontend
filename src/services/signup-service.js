@@ -1,24 +1,54 @@
 import axios from "axios";
 
-export const signupHandler = async (username, number, email, password, setAlert) => {
+export const signupHandler = async (
+  username,
+  number,
+  email,
+  password,
+  setAlert
+) => {
   try {
-    const data = await axios.post(
+    const { data } = await axios.post(
       "https://travel-app-backend-zvzh.onrender.com/api/auth/register",
       {
-        username: username,
-        number: number,
-        email: email,
-        password: password,
+        username,
+        number,
+        email,
+        password,
       }
     );
-    console.log("Signed Up");
-    console.log(data);
+
     setAlert({
       open: true,
-      message: `Account Created:: username - ${username}`,
-      type: "success"
-    })
+      type: "success",
+      message: data.message || `Account Created: username - ${data.username}`,
+    });
+
   } catch (err) {
-    console.log("error adding user to database");
+    console.error("Signup error:", err);
+
+    if (err.response) {
+      // Backend sent an error
+      if (err.response.status === 409) {
+        setAlert({
+          open: true,
+          type: "error",
+          message: "Email or mobile number already exists",
+        });
+      } else {
+        setAlert({
+          open: true,
+          type: "error",
+          message: err.response.data?.message || "Signup failed",
+        });
+      }
+    } else {
+      // Network / server down
+      setAlert({
+        open: true,
+        type: "error",
+        message: "Server not reachable. Try again later.",
+      });
+    }
   }
 };
