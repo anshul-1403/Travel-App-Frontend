@@ -5,7 +5,10 @@ import {
   SearchResults,
   Wishlist,
   Payment,
-  OrderSummary
+  OrderSummary,
+  AdminDashboard,
+  Inbox,
+  MyBookings,
 } from "./pages";
 import "./App.css";
 
@@ -21,6 +24,9 @@ function App() {
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/confirm-booking/stay/:id" element={<Payment />} />
       <Route path="/order-summary" element={<OrderSummary />} />
+      <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/inbox" element={<Inbox />} />
+      <Route path="/my-bookings" element={<MyBookings />} />
     </Routes>
   );
 }

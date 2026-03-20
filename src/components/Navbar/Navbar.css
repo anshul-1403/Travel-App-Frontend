@@ -29,6 +29,34 @@
   border-radius: 4px;
 }
 
+.nav-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #717171;
+  padding: 10px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.nav-icon-container:hover {
+  background-color: #f7f7f7;
+}
+
+.nav-icon-container .material-icons-outlined {
+  font-size: 1.5rem;
+}
+
+.status-active {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.status-cancelled {
+    color: #f44336;
+    font-weight: bold;
+}
+
 .form-option {
   font-size: 0.875rem;
   padding: 8px;

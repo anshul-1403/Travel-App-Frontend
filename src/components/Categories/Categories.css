@@ -7,6 +7,14 @@
   width: 100vw;
 }
 
+@media (max-width: 768px) {
+  .categories {
+    position: relative;
+    padding: 1rem;
+    width: 100%;
+  }
+}
+
 .gap-large {
   gap: 2rem;
 }

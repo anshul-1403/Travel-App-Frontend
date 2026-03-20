@@ -5,30 +5,44 @@ export const signupHandler = async (
   number,
   email,
   password,
-  setAlert
+  setAlert,
+  onSuccess
 ) => {
   try {
-    const { data } = await axios.post(
-      "https://travel-app-backend-zvzh.onrender.com/api/auth/register",
-      {
-        username,
-        number,
-        email,
-        password,
-      }
+    // Step 1: Register
+    await axios.post(
+      "http://localhost:3200/api/auth/register",
+      { username, number, email, password }
     );
+
+    // Step 2: Auto-login immediately after
+    const {
+      data: { accessToken, username: loggedInUsername, role },
+    } = await axios.post("http://localhost:3200/api/auth/login", {
+      number,
+      password,
+    });
+
+    // Store in localStorage
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("username", loggedInUsername);
+    localStorage.setItem("role", role);
+
+    // Call onSuccess callback with the login data
+    if (onSuccess) {
+      onSuccess({ accessToken, username: loggedInUsername, role });
+    }
 
     setAlert({
       open: true,
       type: "success",
-      message: data.message || `Account Created: username - ${data.username}`,
+      message: `Welcome, ${loggedInUsername}! Your account has been created.`,
     });
 
   } catch (err) {
     console.error("Signup error:", err);
 
     if (err.response) {
-      // Backend sent an error
       if (err.response.status === 409) {
         setAlert({
           open: true,
@@ -43,7 +57,6 @@ export const signupHandler = async (
         });
       }
     } else {
-      // Network / server down
       setAlert({
         open: true,
         type: "error",

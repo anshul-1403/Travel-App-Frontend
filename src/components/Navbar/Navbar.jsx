@@ -1,12 +1,57 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./Navbar.css";
-import { useDate, useAuth } from "../../context";
-import { Link } from "react-router-dom";
+import { useDate, useAuth, useAlert } from "../../context";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { ProfileDropDown } from "../ProfileDropDown/ProfileDropDown";
+import { AuthModal } from "../AuthModal/AuthModal";
 
 export const Navbar = ({route}) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { destination, dateDispatch, checkInDate, checkOutDate, guests } =
     useDate();
 
-  const { authDispatch, accessToken } = useAuth();
+  const { authDispatch, accessToken, isAuthModalOpen, isDropDownModalOpen } = useAuth();
+  const { setAlert } = useAlert();
+  const [hasUnread, setHasUnread] = useState(false);
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    const fetchNotifications = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:3200/api/notifications", {
+          headers: { authorization: accessToken }
+        });
+        
+        setHasUnread(data.some(n => !n.isRead));
+
+        const latestNotif = data[0];
+        if (latestNotif && !latestNotif.isRead) {
+          const storedId = localStorage.getItem("latestNotifId");
+          if (storedId !== latestNotif._id) {
+            setAlert({
+              open: true,
+              message: `New Message: ${latestNotif.message}`,
+              type: "success"
+            });
+            localStorage.setItem("latestNotifId", latestNotif._id);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    // Initial fetch
+    fetchNotifications();
+
+    // Poll every 3 seconds so the red dot appears "instantly"
+    const intervalId = setInterval(fetchNotifications, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [accessToken, location.pathname, setAlert]);
 
   const handleSearchClick = () => {
     dateDispatch({
@@ -60,8 +105,16 @@ export const Navbar = ({route}) => {
       </div>
       }
       
-      <nav className="d-flex align-center gap-large" onClick={handleAuthClick}>
-        <div className="nav d-flex align-center cursor-pointer">
+      <nav className="d-flex align-center gap-large">
+        {
+          accessToken && (
+            <div className="nav-icon-container cursor-pointer" style={{position: "relative"}} onClick={() => navigate("/inbox")}>
+              <span className="material-icons-outlined">notifications</span>
+              {hasUnread && <span className="notification-badge"></span>}
+            </div>
+          )
+        }
+        <div className="nav d-flex align-center cursor-pointer" onClick={handleAuthClick}>
           <span className="material-icons-outlined profile-option menu">
             menu
           </span>
@@ -70,6 +123,8 @@ export const Navbar = ({route}) => {
           </span>
         </div>
       </nav>
+      {isAuthModalOpen && <AuthModal />}
+      {isDropDownModalOpen && <ProfileDropDown />}
     </header>
   );
 };

@@ -1,0 +1,156 @@
+.admin-container {
+    display: flex;
+    min-height: 80vh;
+    padding: 8rem 2rem 2rem 2rem;
+    gap: 2rem;
+}
+
+.admin-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-right: 1px solid #ddd;
+    padding-right: 1rem;
+}
+
+.admin-tab {
+    padding: 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.admin-tab:hover {
+    background: #f0f0f0;
+}
+
+.admin-tab.active {
+    background: #ff385c;
+    color: white;
+}
+
+.admin-main {
+    flex: 4;
+}
+
+.admin-hotel-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.add-hotel-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 500px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.add-hotel-form input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.manage-section h2 {
+    margin-bottom: 1rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+}
+
+.user-list li {
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.user-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.user-card {
+    padding: 1rem 1.25rem;
+    border: 1px solid #ebebeb;
+    border-radius: 12px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.user-card.user-blacklisted {
+    background: #fff5f5;
+    border-color: #ffcdd2;
+}
+
+.user-card-info {
+    flex: 1;
+}
+
+.user-card-name {
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.user-card-email {
+    color: #717171;
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+.user-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.blacklist-badge {
+    background: #ffcdd2;
+    color: #c62828;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.admin-badge {
+    background: #fff3e0;
+    color: #e65100;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.warn-input-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+}

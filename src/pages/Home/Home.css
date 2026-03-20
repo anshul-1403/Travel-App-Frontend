@@ -2,8 +2,20 @@
   padding: 11rem 2rem 2rem 2rem;
 }
 
+@media (max-width: 768px) {
+  .main {
+    padding: 2rem 1rem;
+  }
+}
+
 .gap-larger {
   gap: 3rem;
+}
+
+@media (max-width: 768px) {
+  .gap-larger {
+    gap: 1.5rem;
+  }
 }
 
 .alert-text {

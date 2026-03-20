@@ -1,0 +1,147 @@
+.my-bookings-container {
+    padding: 8rem 2rem 2rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.bookings-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #363030;
+}
+
+.bookings-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 4rem 0;
+    color: #717171;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    color: #ccc;
+}
+
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.booking-card {
+    display: flex;
+    border: 1px solid #ebebeb;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s;
+    background: white;
+}
+
+.booking-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.booking-card.booking-cancelled {
+    opacity: 0.75;
+    border-color: #ffd0d0;
+    background: #fff8f8;
+}
+
+.booking-card-image {
+    width: 180px;
+    min-width: 180px;
+    overflow: hidden;
+}
+
+.booking-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.booking-card-info {
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.booking-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.booking-card-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.booking-status {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.status-active {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-cancelled {
+    background: #fce4ec;
+    color: #c62828;
+}
+
+.booking-location {
+    color: #717171;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.booking-dates {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #363030;
+}
+
+.date-arrow {
+    color: #999;
+}
+
+.booking-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #555;
+    flex-wrap: wrap;
+}
+
+.cancellation-note {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .booking-card {
+        flex-direction: column;
+    }
+
+    .booking-card-image {
+        width: 100%;
+        height: 180px;
+    }
+}

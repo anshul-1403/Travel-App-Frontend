@@ -9,8 +9,9 @@ const initialValue = {
   email: "",
   password: "",
   confirmPassword: "",
-  accessToken: "",
-  name: "",
+  accessToken: localStorage.getItem("accessToken") || "",
+  name: localStorage.getItem("username") || "",
+  role: localStorage.getItem("role") || "",
   selectedTab: "login",
 };
 
@@ -27,6 +28,7 @@ const AuthProvider = ({ children }) => {
       number,
       accessToken,
       name,
+      role,
       selectedTab,
       confirmPassword,
     },
@@ -44,6 +46,7 @@ const AuthProvider = ({ children }) => {
         number,
         accessToken,
         name,
+        role,
         selectedTab,
         confirmPassword,
         authDispatch,

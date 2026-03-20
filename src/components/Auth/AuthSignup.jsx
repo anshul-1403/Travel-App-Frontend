@@ -90,7 +90,12 @@ export const AuthSignup = () => {
       isPasswordValid &&
       isConfirmPasswordValid
     ) {
-      signupHandler(username, number, email, password, setAlert);
+      signupHandler(username, number, email, password, setAlert, ({ accessToken, username: loggedInUsername, role }) => {
+        authDispatch({ type: "SET_ACCESS_TOKEN", payload: accessToken });
+        authDispatch({ type: "SET_USERNAME", payload: loggedInUsername });
+        authDispatch({ type: "SET_USER_ROLE", payload: role });
+        authDispatch({ type: "HIDE_AUTH_MODAL" });
+      });
       authDispatch({ type: "CLEAR_USER_DATA" });
     }
   };

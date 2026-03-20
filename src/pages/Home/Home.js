@@ -46,7 +46,7 @@ export const Home = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `https://travel-app-backend-zvzh.onrender.com/api/hotels?categories=${hotelCategory}`
+          `http://localhost:3200/api/hotels?categories=${hotelCategory}`
         );
 
         setTestData(data);

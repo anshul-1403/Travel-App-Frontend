@@ -4,3 +4,6 @@ export { SearchResults } from "./SearchResults/SearchResults";
 export { Wishlist } from "./Wishlist/Wishlist";
 export { Payment } from "./Payment/Payment";
 export { OrderSummary } from "./OrderSummary/OrderSummary";
+export { AdminDashboard } from "./Admin/AdminDashboard";
+export { Inbox } from "./Inbox/Inbox";
+export { MyBookings } from "./MyBookings/MyBookings";

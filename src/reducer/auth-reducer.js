@@ -8,6 +8,11 @@ export const authReducer = (state, {
         ...state,
         isAuthModalOpen: !state.isAuthModalOpen,
       };
+    case "HIDE_AUTH_MODAL":
+      return {
+        ...state,
+        isAuthModalOpen: false,
+      };
     case "SET_TO_LOGIN":
       return {
         ...state,
@@ -62,6 +67,16 @@ export const authReducer = (state, {
         ...state,
         name: payload,
       };
+    case "SET_USERNAME":
+      return {
+        ...state,
+        username: payload,
+      };
+    case "SET_USER_ROLE":
+      return {
+        ...state,
+        role: payload,
+      };
     case "SHOW_DROP_DOWN_OPTIONS":
       return {
         ...state,
@@ -71,7 +86,8 @@ export const authReducer = (state, {
       return {
         ...state,
         accessToken: "",
-        name: ""
+        name: "",
+        role: ""
       }
       default:
         return state;

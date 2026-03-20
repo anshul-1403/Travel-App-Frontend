@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export const ProfileDropDown = () => {
 
-    const { authDispatch } = useAuth();
+    const { authDispatch, role } = useAuth();
 
     const { dateDispatch } = useDate();
 
@@ -23,7 +23,22 @@ export const ProfileDropDown = () => {
         navigate("/wishlist");
     }
 
+    const handleMyBookingsClick = () => {
+        authDispatch({
+            type: "SHOW_DROP_DOWN_OPTIONS"
+        })
+        navigate("/my-bookings");
+    }
+
+    const handleAdminClick = () => {
+        authDispatch({
+            type: "SHOW_DROP_DOWN_OPTIONS"
+        })
+        navigate("/admin");
+    }
+
     const handleLogoutClick = () => {
+        localStorage.clear();
         authDispatch({
             type: "CLEAR_USER_DATA"
         })
@@ -57,6 +72,18 @@ export const ProfileDropDown = () => {
             </span>
                 Wishlist
             </span>
+            <span className="option-span wishlist-span cursor-pointer d-flex align-center gap-small" onClick={handleMyBookingsClick}>
+                <span class="material-icons-outlined">book_online</span>
+                My Bookings
+            </span>
+            {role === "admin" && (
+                <span className="option-span wishlist-span cursor-pointer d-flex align-center gap-small" onClick={handleAdminClick}>
+                    <span class="material-icons-outlined">
+                        dashboard
+                    </span>
+                    Admin Panel
+                </span>
+            )}
             <span className="option-span logout cursor-pointer d-flex align-center gap-small" onClick={handleLogoutClick}>
                 <span class="material-icons-outlined">
                     logout

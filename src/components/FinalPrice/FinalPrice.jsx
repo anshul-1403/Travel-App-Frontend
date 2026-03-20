@@ -95,18 +95,28 @@ export const FinalPrice = ({ singleHotel }) => {
         </button>
       </div>
       <div className="price-distribution d-flex direction-column">
-        <div className="final-price d-flex align-center justify-space-between">
-          <span className="span">Rs. {price} x 2 nights</span>
-          <span className="span">Rs. {price * 2}</span>
-        </div>
-        <div className="final-price d-flex align-center justify-space-between">
-          <span className="span">Service fee</span>
-          <span className="span">Rs. 200</span>
-        </div>
-        <div className="final-price d-flex align-center justify-space-between">
-          <span className="span">Total</span>
-          <span className="span">Rs. {price * 2 + 200}</span>
-        </div>
+        {checkInDate && checkOutDate ? (() => {
+          const nights = Math.round((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24));
+          const total = price * nights + 200;
+          return (
+            <>
+              <div className="final-price d-flex align-center justify-space-between">
+                <span className="span">Rs. {price} x {nights} night{nights !== 1 ? "s" : ""}</span>
+                <span className="span">Rs. {price * nights}</span>
+              </div>
+              <div className="final-price d-flex align-center justify-space-between">
+                <span className="span">Service fee</span>
+                <span className="span">Rs. 200</span>
+              </div>
+              <div className="final-price d-flex align-center justify-space-between">
+                <span className="span">Total</span>
+                <span className="span">Rs. {total}</span>
+              </div>
+            </>
+          );
+        })() : (
+          <p style={{ color: "#717171", fontSize: "0.9rem" }}>Select dates to see price breakdown</p>
+        )}
       </div>
     </div>
   );

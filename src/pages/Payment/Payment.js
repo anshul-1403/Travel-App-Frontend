@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDate, useHotel } from "../../context";
+import { useDate, useHotel, useAuth, useAlert } from "../../context";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import "./Payment.css";
@@ -12,8 +12,9 @@ export const Payment = () => {
   const navigate = useNavigate();
 
   const { guests, checkInDate, checkOutDate } = useDate();
-
+  const { accessToken } = useAuth();
   const { setHotel } = useHotel();
+  const { setAlert } = useAlert();
 
   const numberOfNights =
     checkInDate && checkOutDate
@@ -26,7 +27,7 @@ export const Payment = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `https://travel-app-backend-zvzh.onrender.com/api/hotels/${id}`
+          `http://localhost:3200/api/hotels/${id}`
         );
         setSingleHotel(data);
       } catch (err) {
@@ -66,12 +67,34 @@ export const Payment = () => {
       contact: "9876543210",
       description: "Thank you for booking with us",
 
-      handler: ({ payment_id }) => {
-        setHotel({...singleHotel, orderId: uuid(),
-        payment_id, 
-        checkInDate: checkInDate.toLocaleDateString("en-US", { day: "numeric", month: "short" }),
-        checkOutDate: checkOutDate.toLocaleDateString("en-US", { day: "numeric", month: "short" }),
-        totalPayableAmount});
+      handler: async ({ payment_id }) => {
+        const bookingData = {
+            hotelId: id,
+            checkInDate,
+            checkOutDate,
+            guests,
+            totalAmount: totalPayableAmount,
+            orderId: uuid()
+        };
+
+        // Try to save booking, but don't block navigation if it fails
+        try {
+            await axios.post("http://localhost:3200/api/bookings", bookingData, {
+                headers: { authorization: accessToken }
+            });
+        } catch (err) {
+            console.log("Booking save failed:", err?.response?.data || err.message);
+            setAlert({ open: true, message: `Payment succeeded but booking save failed: ${err?.response?.data?.message || "Unknown error"}. Contact support.`, type: "error" });
+        }
+
+        setHotel({
+            ...singleHotel,
+            orderId: bookingData.orderId,
+            payment_id,
+            checkInDate: checkInDate.toLocaleDateString("en-US", { day: "numeric", month: "short" }),
+            checkOutDate: checkOutDate.toLocaleDateString("en-US", { day: "numeric", month: "short" }),
+            totalPayableAmount
+        });
         navigate("/order-summary");
       },
       prefill: {

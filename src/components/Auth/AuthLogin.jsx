@@ -13,23 +13,23 @@ export const AuthLogin = () => {
 
   const handleNumberChange = (e) => {
     const value = e.target.value;
-    if (!validateNumber(value)) {
+    authDispatch({ type: "NUMBER", payload: value });
+    if (value && !validateNumber(value)) {
       setNumberError("Enter a valid 10-digit mobile number");
     } else {
       setNumberError("");
-      authDispatch({ type: "NUMBER", payload: value });
     }
   };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
-    if (!validatePassword(value)) {
+    authDispatch({ type: "PASSWORD", payload: value });
+    if (value && !validatePassword(value)) {
       setPasswordError(
         "Password must be 8+ chars with uppercase, lowercase, number & special character"
       );
     } else {
       setPasswordError("");
-      authDispatch({ type: "PASSWORD", payload: value });
     }
   };
 
@@ -38,7 +38,7 @@ export const AuthLogin = () => {
 
     if (numberError || passwordError || !number || !password) return;
 
-    const { accessToken, username } = await loginHandler(
+    const { accessToken, username, role } = await loginHandler(
       number,
       password,
       setAlert
@@ -46,6 +46,7 @@ export const AuthLogin = () => {
 
     authDispatch({ type: "SET_ACCESS_TOKEN", payload: accessToken });
     authDispatch({ type: "SET_USER_NAME", payload: username });
+    authDispatch({ type: "SET_USER_ROLE", payload: role });
     authDispatch({ type: "CLEAR_USER_DATA" });
     authDispatch({ type: "SHOW_AUTH_MODAL" });
   };
