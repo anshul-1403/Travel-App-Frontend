@@ -78,3 +78,44 @@
   font-size: 2rem;
   color: var(--background-color);
 }
+
+@media only screen and (max-width: 768px) {
+  .destionation-options {
+    flex-direction: column;
+    width: 90%;
+    top: 4rem;
+    padding: 1rem;
+    border-radius: 8px;
+    align-items: flex-start !important;
+  }
+
+  .location-container {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .destionation-options .border-right-1px {
+    display: none;
+  }
+
+  .search-dest {
+    width: 100%;
+    border-bottom: 1px solid var(--accent-color);
+    padding: 0.5rem 0;
+    font-size: 1rem;
+  }
+
+  .search-container {
+    width: 100%;
+    border-radius: 8px;
+    justify-content: center;
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+  }
+
+  .search-result-container {
+    width: 90%;
+    left: 5%;
+    top: 25rem; 
+  }
+}

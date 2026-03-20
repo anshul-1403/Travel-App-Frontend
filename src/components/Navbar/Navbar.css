@@ -93,3 +93,38 @@
 .cursor-pointer:hover {
   cursor: pointer;
 }
+
+@media only screen and (max-width: 768px) {
+  .heading {
+    position: sticky;
+    top: 0;
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .form-container {
+    width: 100%;
+    order: 3; /* Pushes the search bar underneath the logo and profile */
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+
+  .form-option {
+    font-size: 0.75rem;
+    padding: 4px;
+  }
+
+  .nav-icon-container {
+    padding: 5px;
+  }
+  
+  .nav-icon-container .material-icons-outlined {
+    font-size: 1.25rem;
+  }
+
+  .profile-option {
+    font-size: 1.5rem;
+  }
+}
