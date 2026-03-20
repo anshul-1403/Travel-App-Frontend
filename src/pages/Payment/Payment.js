@@ -27,7 +27,7 @@ export const Payment = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3200/api/hotels/${id}`
+          `https://travel-app-backend-zvzh.onrender.com/api/hotels/${id}`
         );
         setSingleHotel(data);
       } catch (err) {
@@ -79,7 +79,7 @@ export const Payment = () => {
 
         // Try to save booking, but don't block navigation if it fails
         try {
-            await axios.post("http://localhost:3200/api/bookings", bookingData, {
+            await axios.post("https://travel-app-backend-zvzh.onrender.com/api/bookings", bookingData, {
                 headers: { authorization: accessToken }
             });
         } catch (err) {

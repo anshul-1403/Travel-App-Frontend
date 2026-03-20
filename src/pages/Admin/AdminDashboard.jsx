@@ -66,7 +66,7 @@ const ManageHotels = () => {
     useEffect(() => {
         (async () => {
             try {
-                const { data } = await axios.get("http://localhost:3200/api/hotels");
+                const { data } = await axios.get("https://travel-app-backend-zvzh.onrender.com/api/hotels");
                 setHotels(data);
             } catch (err) {
                 console.log(err);
@@ -76,7 +76,7 @@ const ManageHotels = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:3200/api/admin/hotels/${id}`, {
+            await axios.delete(`https://travel-app-backend-zvzh.onrender.com/api/admin/hotels/${id}`, {
                 headers: { authorization: accessToken }
             });
             setHotels(hotels.filter(h => h._id !== id));
@@ -90,7 +90,7 @@ const ManageHotels = () => {
     const handleAddHotel = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post("http://localhost:3200/api/admin/hotels", newHotel, {
+            const { data } = await axios.post("https://travel-app-backend-zvzh.onrender.com/api/admin/hotels", newHotel, {
                 headers: { authorization: accessToken }
             });
             setHotels([...hotels, data]);
@@ -145,7 +145,7 @@ const ManageUsers = () => {
 
     const fetchUsers = async () => {
         try {
-            const { data } = await axios.get("http://localhost:3200/api/admin/users", {
+            const { data } = await axios.get("https://travel-app-backend-zvzh.onrender.com/api/admin/users", {
                 headers: { authorization: accessToken }
             });
             setUsers(data);
@@ -161,7 +161,7 @@ const ManageUsers = () => {
 
     const handleBlacklist = async (id) => {
         try {
-            const { data } = await axios.post(`http://localhost:3200/api/admin/users/${id}/blacklist`, {}, {
+            const { data } = await axios.post(`https://travel-app-backend-zvzh.onrender.com/api/admin/users/${id}/blacklist`, {}, {
                 headers: { authorization: accessToken }
             });
             setAlert({ open: true, message: data.message, type: "success" });
@@ -175,7 +175,7 @@ const ManageUsers = () => {
         const message = warnMsg[id];
         if (!message?.trim()) return;
         try {
-            await axios.post(`http://localhost:3200/api/admin/users/${id}/warn`, { message }, {
+            await axios.post(`https://travel-app-backend-zvzh.onrender.com/api/admin/users/${id}/warn`, { message }, {
                 headers: { authorization: accessToken }
             });
             setAlert({ open: true, message: "Warning sent to user's inbox", type: "success" });
@@ -247,7 +247,7 @@ const ManageBookings = () => {
 
     const fetchBookings = async () => {
         try {
-            const { data } = await axios.get("http://localhost:3200/api/admin/bookings", {
+            const { data } = await axios.get("https://travel-app-backend-zvzh.onrender.com/api/admin/bookings", {
                 headers: { authorization: accessToken }
             });
             setBookings(data);
@@ -263,7 +263,7 @@ const ManageBookings = () => {
 
     const handleCancel = async (id) => {
         try {
-            await axios.post(`http://localhost:3200/api/admin/bookings/cancel/${id}`, { note: cancelNote }, {
+            await axios.post(`https://travel-app-backend-zvzh.onrender.com/api/admin/bookings/cancel/${id}`, { note: cancelNote }, {
                 headers: { authorization: accessToken }
             });
             setAlert({ open: true, message: "Booking cancelled and user notified", type: "success" });

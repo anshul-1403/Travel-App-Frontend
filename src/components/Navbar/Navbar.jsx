@@ -21,7 +21,7 @@ export const Navbar = ({route}) => {
 
     const fetchNotifications = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3200/api/notifications", {
+        const { data } = await axios.get("https://travel-app-backend-zvzh.onrender.com/api/notifications", {
           headers: { authorization: accessToken }
         });
         

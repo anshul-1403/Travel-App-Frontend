@@ -11,14 +11,14 @@ export const signupHandler = async (
   try {
     // Step 1: Register
     await axios.post(
-      "http://localhost:3200/api/auth/register",
+      "https://travel-app-backend-zvzh.onrender.com/api/auth/register",
       { username, number, email, password }
     );
 
     // Step 2: Auto-login immediately after
     const {
       data: { accessToken, username: loggedInUsername, role },
-    } = await axios.post("http://localhost:3200/api/auth/login", {
+    } = await axios.post("https://travel-app-backend-zvzh.onrender.com/api/auth/login", {
       number,
       password,
     });

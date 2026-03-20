@@ -5,7 +5,7 @@ export const loginHandler = async (number, password, setAlert) => {
     const {
       data: { accessToken, username, role },
     } = await axios.post(
-      "http://localhost:3200/api/auth/login",
+      "https://travel-app-backend-zvzh.onrender.com/api/auth/login",
       {
         number: number,
         password: password,

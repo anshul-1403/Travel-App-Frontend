@@ -7,6 +7,14 @@ import "./Categories.css";
 export const Categories = () => {
   const [categories, setCategories] = useState([]);
   const { hotelCategory, setHotelCategory } = useCategory();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const { filterDispatch } = useFilter();
 
@@ -20,7 +28,7 @@ export const Categories = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:3200/api/categories"
+          "https://travel-app-backend-zvzh.onrender.com/api/categories"
         );
         setCategories(data);
       } catch (err) {
@@ -35,11 +43,24 @@ export const Categories = () => {
 
   return (
     <section className="categories d-flex gap">
-      <Carousel className="carousel" itemsToShow={9} itemsToScroll={6} pagination={false}>
-        {
-          categories && categories.map(({ _id, category }) => <span key={_id} className={`${category === hotelCategory ? "category-color" : ""} item`} onClick={() => handleCategoryClick(category)}>{category}</span>)
-        }
-      </Carousel>
+      {isMobile ? (
+        <select 
+          className="mobile-category-dropdown" 
+          value={hotelCategory} 
+          onChange={(e) => handleCategoryClick(e.target.value)}
+        >
+          <option value="">All Categories</option>
+          {categories && categories.map(({ _id, category }) => (
+            <option key={_id} value={category}>{category}</option>
+          ))}
+        </select>
+      ) : (
+        <Carousel className="carousel" itemsToShow={9} itemsToScroll={6} pagination={false}>
+          {
+            categories && categories.map(({ _id, category }) => <span key={_id} className={`${category === hotelCategory ? "category-color" : ""} item`} onClick={() => handleCategoryClick(category)}>{category}</span>)
+          }
+        </Carousel>
+      )}
       <div>
         <button
           className="button btn-filter d-flex align-center gap-small cursor-pointer"

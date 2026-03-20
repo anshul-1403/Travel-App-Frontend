@@ -12,12 +12,12 @@ export const Inbox = () => {
     useEffect(() => {
         (async () => {
             try {
-                const { data } = await axios.get("http://localhost:3200/api/notifications", {
+                const { data } = await axios.get("https://travel-app-backend-zvzh.onrender.com/api/notifications", {
                     headers: { authorization: accessToken }
                 });
                 setNotifications(data);
                 // Mark as read when viewing
-                await axios.post("http://localhost:3200/api/notifications/mark-as-read", {}, {
+                await axios.post("https://travel-app-backend-zvzh.onrender.com/api/notifications/mark-as-read", {}, {
                     headers: { authorization: accessToken }
                 });
             } catch (err) {
