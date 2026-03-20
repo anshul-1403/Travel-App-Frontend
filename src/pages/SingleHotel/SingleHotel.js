@@ -45,7 +45,7 @@ export const SingleHotel = () => {
           {name}, {state}
         </p>
         <HotelImages singleHotel={singleHotel} />
-        <div className="d-flex">
+        <div className="d-flex wrap">
           <HotelDetails singleHotel={singleHotel} />
           <FinalPrice singleHotel={singleHotel} />
         </div>

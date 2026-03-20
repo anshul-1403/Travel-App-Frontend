@@ -19,3 +19,34 @@
 .gap-small {
   gap: 8px;
 }
+
+@media only screen and (max-width: 768px) {
+  .hotel-image-container {
+    height: auto;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  .primary-image-container {
+    height: auto;
+    width: 100%;
+  }
+
+  .primary-img {
+    width: 100%;
+    height: 15rem;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .hotel-image-container .wrap {
+    justify-content: flex-start;
+  }
+
+  .hotel-img {
+    width: 48%;
+    height: 8rem;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+}
