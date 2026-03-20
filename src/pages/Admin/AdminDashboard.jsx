@@ -156,6 +156,7 @@ const ManageUsers = () => {
 
     useEffect(() => {
         fetchUsers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accessToken]);
 
     const handleBlacklist = async (id) => {
@@ -257,6 +258,7 @@ const ManageBookings = () => {
 
     useEffect(() => {
         fetchBookings();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accessToken]);
 
     const handleCancel = async (id) => {
