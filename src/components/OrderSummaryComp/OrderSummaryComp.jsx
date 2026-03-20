@@ -33,13 +33,12 @@ export const OrderSummaryComp = () => {
                 </button>
             </div>
             <span className="span-md">Booking ID: {orderId}</span>
-            <div className="d-flex align-center justify-space-between br-bottom pd-small">
-
-                <div className="d-flex direction-column hoteldetails">
+            <div className="d-flex align-center justify-space-between br-bottom pd-small hotel-summary-details">
+                <div className="d-flex direction-column hotel-summary-text">
                     <span className="fs-md">{name}</span>
                     <span className="span-md">{city}, {state}</span>
                 </div>
-                <div>
+                <div className="hotel-summary-image">
                     <img className="img" src={image} alt={name} />
                 </div>
             </div>

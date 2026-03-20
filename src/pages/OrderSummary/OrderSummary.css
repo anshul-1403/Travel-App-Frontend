@@ -1,3 +1,11 @@
 .order-summary-main {
     margin: 4rem 0 2rem 30%;
 }
+
+@media only screen and (max-width: 768px) {
+  .order-summary-main {
+      margin: 4rem 1rem 2rem 1rem;
+      display: flex;
+      justify-content: center;
+  }
+}

@@ -69,3 +69,31 @@
 .price-detail-container .final-price .span {
   font-size: 1rem;
 }
+
+@media only screen and (max-width: 768px) {
+  .payment-page {
+    flex-direction: column-reverse; /* Put the Hotel Picture and Price Summary on top! */
+    padding: 6rem 1rem 2rem 1rem;
+    gap: 2rem;
+  }
+  
+  .final-details-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .final-details {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .final-details > .d-flex.gap-sm {
+    flex-direction: column;
+  }
+  
+  .image {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+  }
+}

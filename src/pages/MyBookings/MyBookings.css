@@ -144,4 +144,8 @@
         width: 100%;
         height: 180px;
     }
+    
+    .my-bookings-container {
+        padding: 6rem 1rem 2rem 1rem;
+    }
 }
