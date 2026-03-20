@@ -100,15 +100,20 @@
     top: 0;
     padding: 1rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0;
+    justify-content: space-between;
     align-items: center;
+  }
+
+  .heading > nav {
+    gap: 0.5rem !important; /* Overrides the massive gap-large that pushes the menu off-screen */
   }
 
   .form-container {
     width: 100%;
-    order: 3; /* Pushes the search bar underneath the logo and profile */
+    order: 3;
     justify-content: space-between;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
   }
 
   .form-option {
