@@ -281,30 +281,32 @@ const ManageBookings = () => {
             <h2>Manage Bookings</h2>
             <div className="booking-list">
                 {bookings.map(booking => (
-                    <div key={booking._id} className="admin-hotel-card" style={{ flexDirection: "column", alignItems: "flex-start", gap: "0.5rem" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+                    <div key={booking._id} className="admin-hotel-card booking-card-admin">
+                        <div className="booking-card-header">
                             <strong>{booking.hotelId.name}</strong>
                             <span className={`status-${booking.status}`}>{booking.status.toUpperCase()}</span>
                         </div>
-                        <div style={{ fontSize: "0.9rem", color: "#666" }}>
+                        <div className="booking-card-details">
                             User: {booking.userId.username} ({booking.userId.email}) <br />
                             Dates: {new Date(booking.checkInDate).toLocaleDateString()} - {new Date(booking.checkOutDate).toLocaleDateString()}
                         </div>
                         {booking.status === "active" && (
-                            <div style={{ width: "100%", marginTop: "1rem" }}>
+                            <div className="booking-card-actions-container">
                                 {cancellingId === booking._id ? (
-                                    <div style={{ display: "flex", gap: "0.5rem" }}>
+                                    <div className="booking-card-cancel-row">
                                         <input 
                                             placeholder="Cancellation reason..." 
                                             value={cancelNote}
                                             onChange={(e) => setCancelNote(e.target.value)}
-                                            style={{ flex: 1, padding: "0.5rem" }}
+                                            className="cancel-input"
                                         />
-                                        <button className="button btn-secondary" onClick={() => handleCancel(booking._id)}>Confirm</button>
-                                        <button className="button" onClick={() => setCancellingId(null)}>Back</button>
+                                        <div className="cancel-button-group">
+                                            <button className="button btn-secondary" onClick={() => handleCancel(booking._id)}>Confirm</button>
+                                            <button className="button" onClick={() => setCancellingId(null)}>Back</button>
+                                        </div>
                                     </div>
                                 ) : (
-                                    <button className="button btn-secondary" onClick={() => setCancellingId(booking._id)}>Cancel Booking</button>
+                                    <button className="button btn-secondary full-width" onClick={() => setCancellingId(booking._id)}>Cancel Booking</button>
                                 )}
                             </div>
                         )}

@@ -154,3 +154,131 @@
     align-items: center;
     width: 100%;
 }
+
+.booking-card-admin {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.booking-card-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.booking-card-details {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.booking-card-actions-container {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.booking-card-cancel-row {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.cancel-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.cancel-button-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.full-width {
+    width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    .admin-container {
+        flex-direction: column;
+        padding: 6rem 1rem 2rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .admin-sidebar {
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        padding-right: 0;
+        padding-bottom: 1rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.5rem;
+        scrollbar-width: none;
+    }
+
+    .admin-sidebar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .admin-tab {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        text-align: center;
+        min-width: fit-content;
+    }
+
+    .admin-main {
+        flex: none;
+        width: 100%;
+    }
+
+    .admin-hotel-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem;
+    }
+
+    .admin-hotel-card button {
+        width: 100%;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .section-header button {
+        width: 100%;
+    }
+
+    .add-hotel-form {
+        max-width: 100%;
+    }
+
+    .warn-input-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .warn-input-row button {
+        width: 100%;
+    }
+
+    .booking-card-cancel-row {
+        flex-direction: column;
+    }
+
+    .cancel-button-group {
+        width: 100%;
+    }
+
+    .cancel-button-group button {
+        flex: 1;
+    }
+}
