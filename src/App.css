@@ -24,18 +24,6 @@ body {
 }
 
 @media (max-width: 768px) {
-  .heading {
-    padding: 8px 1rem;
-    flex-direction: column;
-    height: auto;
-    position: relative;
-  }
-
-  .form-container {
-    width: 100%;
-    margin-top: 8px;
-  }
-
   .main {
     padding: 2rem 1rem;
   }
@@ -46,9 +34,5 @@ body {
 
   .gap-larger {
     gap: 1.5rem;
-  }
-
-  .nav {
-    display: none; /* Hide profile nav on mobile header, can move to a hamburger menu if needed */
   }
 }
